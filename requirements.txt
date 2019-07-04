@@ -1,0 +1,7 @@
+WSI-SDK is based on Python 2.7, Linux. For using it you need to get below software.
+
+1.OpenSlide
+  In Ubuntu, you can install it by that code on Terminal : apt-get install python-openslide
+  Then, install python I/O interface by pip install openslide
+2.OpenCV
+  Easily, pip install opencv-python
