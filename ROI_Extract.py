@@ -39,13 +39,13 @@ def ROIextract(path):
     im_floodfill_inv = cv2.bitwise_not(im_floodfill)
     # Combine the two images to get the foreground.
     mask = outs | im_floodfill_inv
-    dilation = cv2.dilate(mask, cv2.getStructuringElement(cv2.MORPH_RECT, (11, 11)))
+    dilation = cv2.dilate(mask, cv2.getStructuringElement(cv2.MORPH_RECT, (7, 7)))
 
     # if image is too large, below code would break terminal
     mask, contours, hierarch = cv2.findContours(dilation,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_NONE)
     for i in range(len(contours)):
         area = cv2.contourArea(contours[i])
-        if area < 1000:
+        if area < 2700:
             cv2.drawContours(mask,[contours[i]],0,0,-1)
         else:
         	cv2.fillPoly(mask,[contours[i]],255)
@@ -54,7 +54,6 @@ def ROIextract(path):
     for label in range(1,np.max(labels)+1):
         mask = labels.copy()
         
-        
         x_min = 10*stats[label][1]
         x_max = 10*stats[label][3] + x_min
         y_min = 10*stats[label][0]
@@ -62,7 +61,7 @@ def ROIextract(path):
 
         mask = resize(mask,image.shape[0],image.shape[1])
 
-        mask[labels!=label] = 0
+        mask[mask!=label] = 0
         mask[mask!= 0]=1
         mask_rgb = cv2.merge([mask,mask,mask])
         mask_rgb = mask_rgb*image
