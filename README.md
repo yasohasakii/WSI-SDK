@@ -4,11 +4,10 @@ WSI(Whole slide image)-SDK on Linux 顾名思义,先挖个坑以后再填。
 ## Content
 * [Introduction](#introduction)
 * [Install on Linux](#Install_on_Linux)
-* [Preprocess](#Preprocess)
-
+* [Usage](#Usage)
 
 ## Introduction（2019/7/4）
-&#160; &#160; &#160; &#160;先做一个简单的科普。
+&#160; &#160; &#160; &#160;先做一个简单的科普, 这一部分太长只写中文。 You could read introduction by Google Translate.  
 WSI常作为医疗病理切片图像的保存载体，通常大小在几百MB到十几GB不等。WSI保存的是一个不同尺度下的图像序列，可以理解为用不同放大倍数的显微镜扫描了同时刻下的同一目标，更加直观的可根据下图所示的金字塔结构来理解。  
 <div align=center><img width = '600' height ='400' src ="https://github.com/caibojun/WSI-SDK/blob/master/image/svs_pyramid.png"/></div>
 
@@ -19,5 +18,11 @@ WSI常作为医疗病理切片图像的保存载体，通常大小在几百MB到
 ## Install on Linux（2019/7/2）
 Please see the `requirements.txt`
 
-## Preprocess (2019/7/9)
+## Usage (2019/7/9)
 ### Read SVS/TIFF File
+You can read svs/tiff file by below codes:  
+>from wsi import WSI  
+>wsifile = WSI('your file path')  
+>image = wsifile.read()  
+
+Then you get image as `np.ndarry` format, you can save it by `cv2.imwrite` if image scale under 65000 pixels.
