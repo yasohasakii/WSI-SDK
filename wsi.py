@@ -48,12 +48,17 @@ class WSI(object):
                     x_size = x-i
                 else:
                     y_size = y-j
-                patch = np.array(self.wsi.read_region((i ,j) ,level ,[x_size ,y_size]))
+                try:
+                    patch = np.array(self.wsi.read_region((i ,j) ,level ,[x_size ,y_size]))
+                except Exception as e:
+                    print('Patch location {} /n'.format((i,j)),e)
                 if patch.shape[2]==4:
                     r,g,b,a = cv2.split(patch)
                     patch = cv2.merge([r,g,b])
                 image[j:j+y_size,i:i+x_size] = patch
         return image
-
+    def close(self):
+        self.wsi.close()
+        
 # if __name__=="__main__":
 #     readimg("TCGA.svs")
