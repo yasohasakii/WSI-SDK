@@ -1,4 +1,4 @@
-import kfbread
+import kfb
 import os
 import cv2
 
@@ -11,7 +11,9 @@ def read_folder(dirname):
                 kfb_path = os.path.join(dirname,kfb)
                 savepath = kfb_path.split('.kfb')[0] + '.jpg'
                 print("Reading {}".format(kfb))
-                header, image = kfbread.kfbread(kfb_path)
+                KFB= kfb(kfb_path)
+                header = KFB.header()
+                image =KFB.read()
                 for key in header.keys():
                     endwith = '_'+key+'.jpg'
                     cv2.imwrite(savepath.replace('.jpg',endwith),header[key])
