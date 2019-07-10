@@ -11,10 +11,16 @@ def ROI_extract(image):
             dst_image = np.zeros([h,w,3],np.uint8)
         else:
             dst_image = np.zeros([h,w],np.uint8)
-        dst_image[:h/2,:w/2] = misc.imresize(src_image[:H/2,:W/2],(h/2,w/2),'nearest')
-        dst_image[h/2:,:w/2] = misc.imresize(src_image[H/2:,:W/2],(h-h/2,w/2),'nearest')
-        dst_image[:h/2,w/2:] = misc.imresize(src_image[:H/2,W/2:],(h/2,w-w/2),'nearest')
-        dst_image[h/2:,w/2:] = misc.imresize(src_image[H/2:,W/2:],(h-h/2,w-w/2),'nearest')
+        if max(H/2,W/2,h/2,w/2)>20000:
+            dst_image[:h/2,:w/2] = resize(src_image[:H/2,:W/2],(h/2,w/2))
+            dst_image[h/2:,:w/2] = resize(src_image[H/2:,:W/2],(h-h/2,w/2))
+            dst_image[:h/2,w/2:] = resize(src_image[:H/2,W/2:],(h/2,w-w/2))
+            dst_image[h/2:,w/2:] = resize(src_image[H/2:,W/2:],(h-h/2,w-w/2))
+        else:
+            dst_image[:h/2,:w/2] = misc.imresize(src_image[:H/2,:W/2],(h/2,w/2),'nearest')
+            dst_image[h/2:,:w/2] = misc.imresize(src_image[H/2:,:W/2],(h-h/2,w/2),'nearest')
+            dst_image[:h/2,w/2:] = misc.imresize(src_image[:H/2,W/2:],(h/2,w-w/2),'nearest')
+            dst_image[h/2:,w/2:] = misc.imresize(src_image[H/2:,W/2:],(h-h/2,w-w/2),'nearest')
         return dst_image
 
     gray = 255 - cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
