@@ -29,7 +29,9 @@ Then you get image as `np.ndarry` format, you can save it by `cv2.imwrite` if im
 
 ### Read KFB File
 Codes as below:
->import kfbread  
->header, image = kfbread.kfbread('your file path')  
+>import kfb  
+>KFB = kfb.kfb('your file path')  
+>image = KFB.read()
+>header = KFB.header()
 
 There are some relate information contained by `header`, formated as a python dictionary.
