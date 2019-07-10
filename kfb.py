@@ -110,34 +110,37 @@ def open_kfbslide(filename):
         return None
 
 import numpy as np
-def kfbread(path,level=0):
-    slide = TSlide(path)
-    patch_size = 4000
-    header={}
-    for key, val in slide.associated_images.items():
-        print(key, " --> ", val.size)
-        header[key] = np.array(val)
+class kfb:
+    def __init(self,path):
+        self.slide = TSlide(path)
+        self.patch_size = 4000
+        
+    def header(self):
+        header = {}
+        for key, val in self.slide.associated_images.items():
+            print(key, " --> ", val.size)
+            header[key] = np.array(val)
+        return header
 
-    # #### Test
-    [x, y] = slide.level_dimensions[level]
-    print("Highest Resolution --> {}, {}".format(x,y))
-    image = np.zeros([y,x,3],np.uint8)
-    x_range = list(range(0,x,patch_size))
-    y_range = list(range(0,y,patch_size))
-    for i in x_range:
-        for j in y_range:
-            if (i != max(x_range)) and (j != max(y_range)):
+    def read(self,level = 0):
+        [x, y] = self.slide.level_dimensions[level]
+        print("Resolution --> {}, {}".format(x,y))
+        image = np.zeros([y,x,3],np.uint8)
+        x_range = list(range(0,x,patch_size))
+        y_range = list(range(0,y,patch_size))
+        for i in x_range:
+            for j in y_range:
                 x_size = y_size = patch_size
-            elif i == max(x_range):
-                x_size = x-i
-            else:
-                y_size = y-j
-            patch =  np.array(slide.read_region((i ,j) ,level ,(x_size ,y_size)))
-            if patch.shape[2] == 4:
-                r, g, b, a = cv2.split(patch)
-                patch = cv2.merge([r, g, b])
-            image[j:j+y_size,i:i+x_size,:] = patch 
-    return header,image
+                if i == max(x_range):
+                    x_size = x-i
+                if j == max(y_range):
+                    y_size = y-j
+                patch =  np.array(self.slide.read_region((i ,j) ,level ,(x_size ,y_size)))
+                if patch.shape[2] == 4:
+                    r, g, b, a = cv2.split(patch)
+                    patch = cv2.merge([r, g, b])
+                image[j:j+y_size,i:i+x_size,:] = patch 
+        return image
 
 
 if __name__ == '__main__':
