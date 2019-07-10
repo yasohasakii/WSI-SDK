@@ -50,7 +50,7 @@ def ROI_extract(image):
         if area < 2700:
             cv2.drawContours(mask,[contours[i]],0,0,-1)
         else:
-        	cv2.fillPoly(mask,[contours[i]],255)
+            cv2.fillPoly(mask,[contours[i]],255)
     
     _, labels, stats, centroids = cv2.connectedComponentsWithStats(mask)
     roi_list = []
