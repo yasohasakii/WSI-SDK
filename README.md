@@ -1,10 +1,12 @@
 # WSI-SDK
 WSI(Whole slide image)-SDK on Linux 顾名思义,先挖个坑以后再填。
 
-## Content
-* [Introduction](#introduction)
-* [Install on Linux](#Install_on_Linux)
-* [Usage](#Usage)
+**Content**
+- [Introduction](#introduction)
+- [Install on Linux](#install-on-linux)
+- [Usage](#usage)  
+  - [Read SVS/TIFF File](#read-svstiff-file)
+  - [Read KFB File](#read-kfb-file)
 
 ## Introduction（2019/7/4）
 &#160; &#160; &#160; &#160;先做一个简单的科普, 这一部分太长只写中文。 You could read introduction by Google Translate.  
