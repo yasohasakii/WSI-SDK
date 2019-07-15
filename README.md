@@ -34,4 +34,5 @@ Codes as below:
 >image = KFB.read()  
 >header = KFB.header()
 
-There are some relate information contained by `header`, formated as a python dictionary.
+There are some relate information contained by `header`, formated as a python dictionary.  
+<font color=#0099ff size=3>Notice</font>: If you use "Mask label method" to extract image, please remember your mask's axises are reversed for wsi image.   
