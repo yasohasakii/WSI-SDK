@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 import cv2
-import pickle
+import json
 import openslide
 import numpy as np
 
@@ -19,7 +19,7 @@ class WSI(object):
         self.header['level_downsamples'] = self.wsi.level_downsamples
 
     def save_header(self,folder = None):
-        savepath = self.path.replace(self.path.endswith,'.header')
+        savepath = self.path.replace(self.path.endswith,'.json')
         if folder is None:
             folder = os.path.dirname(self.path)
         else:
@@ -27,13 +27,13 @@ class WSI(object):
                 os.mkdir(folder)
                 savepath = os.path.join(folder,savepath.split('/')[-1])
         with open(savepath,'wb') as header:
-            pickle.dump(self.header,header,pickle.HIGHEST_PROTOCOL)
+            json.dump(self.header,header)
             
     def read(self, level = 0, patch_size = 4000):
         """
-        :param level:
-        :param patch_size:
-        :return:
+        param level: int type which layer extract from image pyramid, default is '0' 
+        param patch_size: int type that small patch's size for extract image piles by piles
+        return: 'numpy.ndarray' type, the image extracted out
         """
         [x,y] =self.wsi.level_dimensions[level]
         print("Image size of level {}: {} {}".format(level, x, y))
@@ -53,11 +53,23 @@ class WSI(object):
                 except Exception as e:
                     print('Patch location {} /n'.format((i,j)),e)
                 if patch.shape[2]==4:
-                    r,g,b,a = cv2.split(patch)
-                    patch = cv2.merge([r,g,b])
+                    patch = patch[:,:,:3]
                 image[j:j+y_size,i:i+x_size] = patch
         return image
+    
+    def get_thumbnail(self,ratio=36):
+        """
+        param ratio: int type means original image's size divide thumbnail image's size
+        return: thumbnail image
+        """
+        [x,y] =self.wsi.level_dimensions[0]
+        thumbnail = self.wsi.get_thumbnail((x/ratio,y/ratio))
+        return thumbnail
+        
     def close(self):
+        """
+        Close wsi object for release memory
+        """
         self.wsi.close()
         
 # if __name__=="__main__":
