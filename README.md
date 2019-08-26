@@ -41,4 +41,5 @@ There are some relate information contained by `header`, formated as a python di
 <font color=#0099ff size=3>Notice</font>: If you use "Mask label method" to extract image, please remember your mask's axises are reversed for wsi image.   
 
 ## Cancer Detect （2019/7/19）
-&#160; &#160; &#160; &#160;最近做了一个基于深度学习的癌细胞检测模型，不过苦于门外汉出身，且没有数据标签，所以一直在忙数据清洗和打标签的工作（老大说的是最好不要做人工标注，用颜色来区分，但是光凭HE染色结果怎么可能分得出来）。模型用的是预训练的SqueezeNet，反而没有花费我太多的时间，短短几天我也从小白变成了一个能看懂胃癌切片的专业人士了（加班时长决定成败与否）。经过多次测试，发现数据标注越好，模型拟合也越顺利。这个项目我打算周末整合一下再放出来，不过出于商业原因数据不会公开的，也敬请原谅。
+&#160; &#160; &#160; &#160;最近做了一个基于深度学习的癌细胞检测模型，不过苦于门外汉出身，且没有数据标签，所以一直在忙数据清洗和打标签的工作（老大说的是最好不要做人工标注，用颜色来区分，但是光凭HE染色结果怎么可能分得出来）。模型用的是预训练的SqueezeNet，反而没有花费我太多的时间，短短几天我也从小白变成了一个能看懂胃癌切片的专业人士了（加班时长决定成败与否）。经过多次测试，发现数据标注越好，模型拟合也越顺利。这个项目我打算周末整合一下再放出来，不过出于商业原因数据不会公开的，也敬请原谅。  
+&#160; &#160; &#160; &#160;这部分的代码已经完成了，详情请见[tumor-annotation](https://github.com/yasohasakii/tumor-annotation),有什么问题的话欢迎添加issue.  
